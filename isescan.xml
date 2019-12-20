@@ -1,0 +1,58 @@
+<tool id="isescan" name="ISEscan" version="1.0">
+    <description>The Automated Identification of Insertion Sequence Elements in Genomes.</description>
+    <requirements>
+    </requirements>
+    <command>
+## The command is a Cheetah template which allows some Python based syntax.
+## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
+
+isescan ${seqfile} proteome hmm;
+
+ls -lh prediction;
+
+    </command>
+    <inputs>
+        <param format="fasta" name="seqfile" type="data" label="sequence file in fasta format" help=""/>
+    </inputs>
+    <outputs>
+
+       <data format="txt" label="${seqfile}.sum" name="sum_file" from_work_dir="prediction/${seqfile}.sum" />
+
+       <data format="txt" label="${seqfile}.raw" name="raw_file" from_work_dir="prediction/${seqfile}.raw" />
+
+       <data format="gff" label="${seqfile}.gff" name="gff_file" from_work_dir="prediction/${seqfile}.gff" />
+
+       <data format="fasta" label="${seqfile}.is.fna" name="is_file" from_work_dir="prediction/${seqfile}.is.fna" />
+
+       <data format="fasta" label="${seqfile}.orf.fna" name="orf_fna_file" from_work_dir="prediction/${seqfile}.orf.fna" />
+
+       <data format="fasta" label="${seqfile}.orf.faa" name="orf_faa_file" from_work_dir="prediction/${seqfile}.orf.faa" />
+
+    </outputs>
+    
+    <tests>
+    <!-- Empty -->
+    </tests>
+
+    <help>
+
+.. class:: infomark
+
+**What it does**
+
+Performs ISEScan on the given seq file.
+
+::
+
+  isescan seqfile proteome hmm
+
+------
+
+.. class:: infomark
+
+**Tool Author**
+
+Mando Rodriguez
+
+    </help>
+</tool>
