@@ -1,0 +1,27 @@
+<tool id="genbank_to_fasta" name="Genbank to Fasta" version="1.2">
+
+    <!-- syntax for the tool xml  https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax -->
+    <description>Takes a GenBank or EMBL format file as input, and outputs a fasta file</description>
+    <requirements>
+
+    </requirements>
+
+    <command interpreter="python2">
+
+      genbank_to_fasta.py -i '$input_file' -o '$output_fasta'
+
+    </command>
+
+    <inputs>
+      <param format="genbank" name="input_file" type="data" label="Genbank input file" help=""/>
+    </inputs>
+
+    <outputs>
+       <data format="fasta" name="output_fasta" label="${tool.name} on ${on_string}: filtered table"/>
+    </outputs>
+
+    <help>
+    </help>
+
+
+</tool>
