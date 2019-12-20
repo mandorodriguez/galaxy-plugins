@@ -6,9 +6,7 @@
 ## The command is a Cheetah template which allows some Python based syntax.
 ## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
 
-isescan ${seqfile} proteome hmm;
-
-ls -lh prediction;
+$__tool_directory__/isescan_wrapper.py ${seqfile}
 
     </command>
     <inputs>
@@ -16,17 +14,17 @@ ls -lh prediction;
     </inputs>
     <outputs>
 
-       <data format="txt" label="${seqfile}.sum" name="sum_file" from_work_dir="prediction/${seqfile}.sum" />
+       <data format="txt" label="${tool.name} on ${on_string}: SUM file" name="sum_file" from_work_dir="file.sum" />
 
-       <data format="txt" label="${seqfile}.raw" name="raw_file" from_work_dir="prediction/${seqfile}.raw" />
+       <data format="txt" label="${tool.name} on ${on_string}: RAW file" name="raw_file" from_work_dir="file.raw" />
 
-       <data format="gff" label="${seqfile}.gff" name="gff_file" from_work_dir="prediction/${seqfile}.gff" />
+       <data format="gff" label="${tool.name} on ${on_string}: GFF file" name="gff_file" from_work_dir="file.gff" />
 
-       <data format="fasta" label="${seqfile}.is.fna" name="is_file" from_work_dir="prediction/${seqfile}.is.fna" />
+       <data format="fasta" label="${tool.name} on ${on_string}: IS file" name="is_file" from_work_dir="file.is.fna" />
 
-       <data format="fasta" label="${seqfile}.orf.fna" name="orf_fna_file" from_work_dir="prediction/${seqfile}.orf.fna" />
+       <data format="fasta" label="${tool.name} on ${on_string}: nucleic Tpase IS file" name="orf_fna_file" from_work_dir="file.orf.fna" />
 
-       <data format="fasta" label="${seqfile}.orf.faa" name="orf_faa_file" from_work_dir="prediction/${seqfile}.orf.faa" />
+       <data format="fasta" label="${tool.name} on ${on_string}: amino Tpase IS file" name="orf_faa_file" from_work_dir="file.orf.faa" />
 
     </outputs>
     
