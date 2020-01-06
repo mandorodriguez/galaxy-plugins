@@ -1,0 +1,90 @@
+<tool id="genbank_to_fasta" name="Genbank to Fasta" version="1.2">
+   
+    <!--web instance: https://rocaplab.ocean.washington.edu/tools/genbank_to_fasta/ -->
+
+    <!-- syntax for the tool xml  https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax -->
+    <description>Takes a GenBank or EMBL format file as input, and outputs a fasta file</description>
+    <requirements>
+
+    </requirements>
+
+    <command interpreter="python2">
+
+      genbank_to_fasta.py -i '$input_file' -o '$output_fasta'
+
+    </command>
+
+    <inputs>
+      <param format="genbank" name="input_file" type="data" label="Genbank input file" help=""/>
+
+      <conditional name="delimiter_type">
+	<param name="delimiter" type="select" label="Header Item Delimiter Character" value="None">
+	   <option value="none">None</option>
+	   <option value="space">space</option>
+	   <option value="spacepipe">Space |</option>
+	   <option value="pipe">Pipe |</option>
+	   <option value="dash">Dash -</option>
+	   <option value="underscore">Underscore _</option>
+	</param>
+      </conditional>
+
+
+      <conditional name="feature_extraction">
+
+        <param name="features" type="select" label="Feature Extraction"> 
+	   <option value="whole">Extract Whole Sequence</option>
+           <option value="individual">Extract Individual Features</option>
+	</param>
+
+	<when value="whole">
+
+	  <param name="header" type="text" label="If you wish, you may specify a custom header line for your fasta file. Omit the leading “>” character." />
+
+        </when>
+	
+
+        <when value="individual">
+          <conditional name="feature_to_extract">
+	    <param name="features" type="select" label="Feature to Extract">
+               <option value="cds">CDS</option>
+               <option value="rrna">rRNA</option>
+               <option value="trna">tRNA</option>
+               <option value="gene">gene</option>
+               <option value="misc_rna">misc_RNA</option>
+               <option value="other">other</option>
+            </param>
+            <when value="other">
+               <param name="other_feature" type="text" label="Other feature id" />  
+            </when>
+          </conditional>
+        </when>
+
+      </conditional>
+
+    </inputs>
+
+    <outputs>
+       <data format="fasta" name="output_fasta" label="${tool.name} on ${on_string}: filtered table"/>
+    </outputs>
+
+    <help>
+
+.. class:: infomark
+
+**What it does**
+
+Runs a script that extracts the fasta info from genbank files.
+
+------
+
+.. class:: infomark
+
+**Tool Author**
+
+Mando Rodriguez
+
+    </help>
+
+
+
+</tool>
