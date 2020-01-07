@@ -2,7 +2,7 @@
    
     <!--web instance: https://rocaplab.ocean.washington.edu/tools/genbank_to_fasta/ -->
 
-    <!-- syntax for the tool xml  https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax -->
+    <!-- syntax for the tool xml  https://docs.galaxyproject.org/en/latest/dev/schema.html -->
     <description>Takes a GenBank or EMBL format file as input, and outputs a fasta file</description>
     <requirements>
 
@@ -44,7 +44,20 @@
 	
 
         <when value="individual">
+
+          <conditional name="output_sequence_type">
+
+             <param name="seq_type" type="select" label="Output Sequence Type">
+                <option value="aas">Amino Acid sequence</option>
+                <option value="aastotf">Amino Acid sequence translated on the fly</option>
+                <option value="ns">Nucleotide sequence</option>
+             </param>
+
+          </conditional>
+
+
           <conditional name="feature_to_extract">
+
 	    <param name="features" type="select" label="Feature to Extract">
                <option value="cds">CDS</option>
                <option value="rrna">rRNA</option>
@@ -56,9 +69,20 @@
             <when value="other">
                <param name="other_feature" type="text" label="Other feature id" />  
             </when>
+
+
           </conditional>
+
+          <param name="qualifier1" type="text" value="locus_tag" label="Select qualifiers to use in the Fasta Header Line, First Qualifier:" />
+          <param name="qualifier2" type="text" value="gene" label="Second Qualifier:" />
+          <param name="qualifier3" type="text" value="product" label="Third Qualifier:" />
+          <param name="qualifier4" type="text" value="location" label="Fourth Qualifier:" />
+          <param name="qualifier5" type="text" label="Fifth Qualifier:" />
+          <param name="qualifier6" type="text" label="Sixth Qualifier:" />
+
         </when>
 
+ 
       </conditional>
 
     </inputs>
