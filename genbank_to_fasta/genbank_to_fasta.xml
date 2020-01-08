@@ -8,9 +8,37 @@
 
     </requirements>
 
-    <command interpreter="python2">
+    <command>
 
-      genbank_to_fasta.py -i '$input_file' -o '$output_fasta'
+  which genbank_to_fasta.py;
+
+  genbank_to_fasta.py -i '$input_file' -o '$output_fasta'
+
+  -m 'genbank'
+
+  -d ${delimiter_type.delimiter}
+
+#if $feature_extraction.features == "whole":
+
+  -u '${feature_extraction.header}'
+
+#else:
+
+   -s '${feature_extraction.output_sequence_type.seq_type}'
+
+   #if $feature_extraction.feature_to_extract.extract == "other"
+
+     -f ${feature_extraction.feature_to_extract.other_feature}
+   
+   #else:
+
+     -f ${$feature_extraction.feature_to_extract.extract}
+  
+   #end if
+
+   -q `echo ${feature_extraction.qualifiers} | sed -e 's/ //g'`
+
+#end if
 
     </command>
 
@@ -18,10 +46,9 @@
       <param format="genbank" name="input_file" type="data" label="Genbank input file" help=""/>
 
       <conditional name="delimiter_type">
-	<param name="delimiter" type="select" label="Header Item Delimiter Character" value="None">
-	   <option value="none">None</option>
-	   <option value="space">space</option>
+	<param name="delimiter" type="select" label="Header Item Delimiter Character. Default is space pipe (' |')" value="spacepipe">
 	   <option value="spacepipe">Space |</option>
+	   <option value="space">space</option>
 	   <option value="pipe">Pipe |</option>
 	   <option value="dash">Dash -</option>
 	   <option value="underscore">Underscore _</option>
@@ -38,6 +65,9 @@
 
 	<when value="whole">
 
+          <!--
+	  <param name="annotations" type="text" value="organism" label="Specify which record annotation should make up the header line. Takes comma separated list. Will accept any annotation that appears in your genbank file, (e.g. comment,taxonomy,accessions). Default is organism." />
+	  -->
 	  <param name="header" type="text" label="If you wish, you may specify a custom header line for your fasta file. Omit the leading “>” character." />
 
         </when>
@@ -58,7 +88,7 @@
 
           <conditional name="feature_to_extract">
 
-	    <param name="features" type="select" label="Feature to Extract">
+	    <param name="extract" type="select" label="Feature to Extract">
                <option value="cds">CDS</option>
                <option value="rrna">rRNA</option>
                <option value="trna">tRNA</option>
@@ -73,12 +103,10 @@
 
           </conditional>
 
-          <param name="qualifier1" type="text" value="locus_tag" label="Select qualifiers to use in the Fasta Header Line, First Qualifier:" />
-          <param name="qualifier2" type="text" value="gene" label="Second Qualifier:" />
-          <param name="qualifier3" type="text" value="product" label="Third Qualifier:" />
-          <param name="qualifier4" type="text" value="location" label="Fourth Qualifier:" />
-          <param name="qualifier5" type="text" label="Fifth Qualifier:" />
-          <param name="qualifier6" type="text" label="Sixth Qualifier:" />
+	  <param name="qualifiers" type="text" value="locus_tag,gene,product,location" label="Qualifiers to use in the Fasta Header line. Takes comma separated list. Will accept any qualifier that appears in your genbank 
+                file, (e.g. note,protein_id,etc). Qualifiers appear in the header line in 
+                the order you list them. Use 'location_long' for the exact location information as it 
+                appears in the input file. Default is 'locus_tag,gene,product,location'." />
 
         </when>
 
