@@ -78,9 +78,9 @@
           <conditional name="output_sequence_type">
 
              <param name="seq_type" type="select" label="Output Sequence Type">
-                <option value="aas">Amino Acid sequence</option>
-                <option value="aastotf">Amino Acid sequence translated on the fly</option>
-                <option value="ns">Nucleotide sequence</option>
+                <option value="aa">Amino Acid sequence</option>
+                <option value="taa">Amino Acid sequence translated on the fly</option>
+                <option value="nt">Nucleotide sequence</option>
              </param>
 
           </conditional>
@@ -89,7 +89,7 @@
           <conditional name="feature_to_extract">
 
 	    <param name="extract" type="select" label="Feature to Extract">
-               <option value="cds">CDS</option>
+               <option value="CDS">CDS</option>
                <option value="rrna">rRNA</option>
                <option value="trna">tRNA</option>
                <option value="gene">gene</option>
