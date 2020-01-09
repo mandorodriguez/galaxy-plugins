@@ -90,8 +90,8 @@
 
 	    <param name="extract" type="select" label="Feature to Extract">
                <option value="CDS">CDS</option>
-               <option value="rrna">rRNA</option>
-               <option value="trna">tRNA</option>
+               <option value="rRNA">rRNA</option>
+               <option value="tRNA">tRNA</option>
                <option value="gene">gene</option>
                <option value="misc_rna">misc_RNA</option>
                <option value="other">other</option>
