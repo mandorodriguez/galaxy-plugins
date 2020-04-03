@@ -1,0 +1,68 @@
+<tool id="panisa" name="panISA" version="1.0">
+    <description>Search integrative element (IS) insertion on a genome using BAM alignment.</description>
+    <requirements>
+    </requirements>
+    <command>
+## The command is a Cheetah template which allows some Python based syntax.
+## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
+
+panISa.py -q {$quality} -m {$minimum} -s {$size} -p {$percentage} -o result.txt {$bamfile}
+
+    </command>
+    <inputs>
+        <param format="bam" name="bamfile" type="data" label="Alignment on BAM/SAM format" help=""/>
+        <param format="txt" name="quality" type="integer" value="20" label="Min alignment quality value to conserve a clipped read" help=""/>
+        <param format="txt" name="minimum" type="integer" value="10" label="Min number of clipped reads to look at IS on a position" help=""/>
+        <param format="txt" name="size" type="integer" value="20" label="Maximun size of direct repeat region, default=20pb" help=""/>
+	<param format="txt" name="percentage" type="float" value="0.8" label="Minimum percentage of same base to create consensus,default=0.8" help=""/>
+    </inputs>
+    <outputs>
+
+       <data format="txt" label="${tool.name} on ${on_string}: IS insertion file" name="result" from_work_dir="result.txt" />
+
+    </outputs>
+    
+    <tests>
+    <!-- Empty -->
+    </tests>
+
+    <help>
+
+.. class:: infomark
+
+**What it does**
+
+Performs ISEScan on the given seq file.
+
+::
+
+  python panISa.py [options] bam
+
+------
+
+.. class:: infomark
+
+**Tool Author**
+
+Mando Rodriguez
+
+------
+
+**What it does**
+
+The panISa software searches for Insertion Sequences on NGS data ab initio (i.e. with a database-free approach) in bacterial genomes from short read data. Briefly, the software identifies a signature of insertion in the alignment by counting clipped reads on the start and end positions of the potential IS. These clipped reads overlap the direct repeats due to IS insertion. Finally, using a reconstruction of the beginning of both sides of the IS (IRL and IRR), panISa validates the IS by searching for inverted repeat regions.
+
+
+Please cite the website "https://github.com/bvalot/panISa"
+
+**References**
+
+panISa: ab initio detection of insertion sequences in bacterial genomes from short read sequence data. Treepong P, Guyeux C, Meunier A, Couchoud C, Hocquet D, Valot B. Bioinformatics. 2018, 34(22):3795-3800.
+
+    </help>
+
+  <citations>
+    <citation type="doi">10.1093/bioinformatics/bty479</citation>
+  </citations>
+
+</tool>
