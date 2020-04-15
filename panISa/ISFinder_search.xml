@@ -6,7 +6,7 @@
 ## The command is a Cheetah template which allows some Python based syntax.
 ## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
 
-ISFinder_search.py -l {$length} -i {$identity} -e {$evalue} -a {$alignment} -o result.txt {$panisafile}
+ISFinder_search.py -l ${length} -i ${identity} -e ${evalue} -a ${alignment} -o result.txt ${panisafile}
 
     </command>
     <inputs>

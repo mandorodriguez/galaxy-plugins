@@ -6,7 +6,7 @@
 ## The command is a Cheetah template which allows some Python based syntax.
 ## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
 
-panISa.py -q {$quality} -m {$minimum} -s {$size} -p {$percentage} -o result.txt {$bamfile}
+panISa.py -q ${quality} -m ${minimum} -s ${size} -p ${percentage} -o result.txt ${bamfile}
 
     </command>
     <inputs>
