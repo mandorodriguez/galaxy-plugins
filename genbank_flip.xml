@@ -1,0 +1,45 @@
+<tool id="genbank_flip" name="Genbank Flip" version="1.0">
+    <description>Flips a genbank files intergenic regions into genes.</description>
+    <requirements>
+    </requirements>
+    <command interpreter="python2">
+## The command is a Cheetah template which allows some Python based syntax.
+## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
+## ! We only have a simple single command here.
+../bioinfo/genbank_flip.py -p ${prefix} -m {min_length} -o ${genbank_out} ${genbank_in}
+
+    </command>
+    <inputs>
+        <param name="genbank_in" format="genbank" type="data" label="Genbank input file" help="" />
+        <param name="prefix" size="10" type="text" label="Gene ID prefix" value="NC" />
+        <param name="min_length" format="txt" type="integer" value="20" label="Minimum length to allow for a gene" help=""/>
+
+    </inputs>
+    <outputs>
+
+       <data format="genbank" label="${tool.name} in ${on_string}: genbank flip" name="genbank_out" />
+   
+    </outputs>
+    
+    <tests>
+    <!-- Empty -->
+    </tests>
+
+    <help>
+
+.. class:: infomark
+
+**What it does**
+
+Performs a genbank flip that turns the intergenic regions into genes in a new genbank file.
+
+------
+
+.. class:: infomark
+
+**Tool Author**
+
+Mando Rodriguez
+
+    </help>
+</tool>
