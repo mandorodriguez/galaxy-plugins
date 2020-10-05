@@ -2,7 +2,7 @@
     <description>Flips a genbank files intergenic regions into genes.</description>
     <requirements>
     </requirements>
-    <command interpreter="python2">
+    <command interpreter="python3">
 ## The command is a Cheetah template which allows some Python based syntax.
 ## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
 ## ! We only have a simple single command here.
