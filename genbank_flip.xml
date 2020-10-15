@@ -6,7 +6,7 @@
 ## The command is a Cheetah template which allows some Python based syntax.
 ## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
 ## ! We only have a simple single command here.
-../bioinfo/genbank_flip.py -p ${prefix} -m ${min_length} -o ${genbank_out} ${genbank_in}
+../bioinfo/genbank_flip.py -v -p ${prefix} -m ${min_length} -o ${genbank_out} ${genbank_in}
 
     </command>
     <inputs>
