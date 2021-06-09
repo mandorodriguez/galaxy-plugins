@@ -1,4 +1,4 @@
-#!/usr/bin/env python3 
+#!/bin/env python3
 """
 Wrapper for isescan program. 
 
@@ -10,6 +10,7 @@ import argparse, os, sys
 import pdb
 import subprocess
 import shutil
+import glob
 
 parser = argparse.ArgumentParser()
 
@@ -20,24 +21,57 @@ args = parser.parse_args()
 
 seqfile_path = args.seqfile_path
 
-result = subprocess.run(['isescan', seqfile_path, 'proteome', 'hmm'], stdout=subprocess.PIPE)
+result = subprocess.run(['/home/galaxy/bin/isescan', '--seqfile', seqfile_path, '--output', 'prediction'], stdout=subprocess.PIPE)
 
 print(result.stdout.decode('utf-8'))
 
-seqfile_parts = seqfile_path.split('/')
-seqfile =  seqfile_parts[-1]
-prediction_dir = os.path.join('prediction', seqfile_parts[-2])
+#seqfile_parts = seqfile_path.split('/')
+#seqfile =  seqfile_parts[-1]
 
-base_filename = os.path.join(prediction_dir, seqfile)
+seqfile = os.path.split(seqfile_path)[-1]
+prediction_dir = os.path.join('prediction', seqfile)
+base_filename = os.path.join('prediction', seqfile)
+
 
 # here we copy all the generated files to the top level so the plugin can see them
 
-shutil.copy("{}.sum".format(base_filename),"file.sum")
-shutil.copy("{}.raw".format(base_filename),"file.raw")
-shutil.copy("{}.gff".format(base_filename),"file.gff")
-shutil.copy("{}.is.fna".format(base_filename),"file.is.fna")
-shutil.copy("{}.orf.fna".format(base_filename),"file.orf.fna")
-shutil.copy("{}.orf.faa".format(base_filename),"file.orf.faa")
+files = glob.glob("./prediction/**",recursive=True)
+
+for f in files:
+    print("Found output file {}".format(f))
+
+    if f.endswith(".sum"):
+        shutil.copy(f,"file.sum")
+    elif f.endswith(".raw"):
+        shutil.copy(f,"file.raw")
+    elif f.endswith(".gff"):
+
+        if 'proteome' in f:
+            shutil.copy(f,"proteome.gff")
+        else:
+            shutil.copy(f,"file.gff")
+    elif f.endswith(".out"):
+
+        if 'proteome' in f:
+            shutil.copy(f,"proteome.out")
+        else:
+            shutil.copy(f,"file.out")
+
+    elif f.endswith(".is.fna"):
+        shutil.copy(f,"file.is.fna")
+    elif f.endswith(".orf.fna"):
+        shutil.copy(f,"file.orf.fna")
+    elif f.endswith(".orf.faa"):
+        shutil.copy(f,"file.orf.faa")
+        
+for f in os.listdir():
+    if 'file' in f:
+        print("Produced output file: {}".format(f))
+
+
+print("ISEscan wrapper done...")
+
+
 
  
 
