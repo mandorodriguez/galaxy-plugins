@@ -1,0 +1,66 @@
+<tool id="mgefinder" name="MGEfinder" version="1.0">
+    <description>A toolbox for identifying mobile genetic element (MGE) insertions from short-read sequencing data of bacterial isolates.</description>
+    <requirements>
+    </requirements>
+    <command>
+## The command is a Cheetah template which allows some Python based syntax.
+## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
+
+$__tool_directory__/mgefinder.sh ${seqfile} ${sensitive} ${mode.select}
+
+    </command>
+    <inputs>
+        <param format="fasta" name="seqfile" type="data" label="sequence file in fasta format" help=""/>
+        <param name="sensitive" type="boolean" label="Sensitive mode" />
+
+        <conditional name="mode">
+            <param name="select" type="select" label="Mode">
+                <option value="database" selected="true">Database</option>
+                <option value="denovo">Denovo</option>
+            </param>
+
+        </conditional>
+    </inputs>
+    <outputs>
+
+       <data format="txt" label="${tool.name} on ${on_string}: SUM file" name="sum_file" from_work_dir="file.sum" />
+       <data format="txt" label="${tool.name} on ${on_string}: RAW file" name="raw_file" from_work_dir="file.raw" />
+       <data format="gff" label="${tool.name} on ${on_string}: GFF file" name="gff_file" from_work_dir="file.gff" />
+       <data format="fasta" label="${tool.name} on ${on_string}: IS file" name="is_file" from_work_dir="file.is.fna" />
+       <data format="fasta" label="${tool.name} on ${on_string}: nucleic Tpase IS file" name="orf_fna_file" from_work_dir="file.orf.fna" />
+       <data format="fasta" label="${tool.name} on ${on_string}: amino Tpase IS file" name="orf_faa_file" from_work_dir="file.orf.faa" />
+       <data format="txt" label="${tool.name} on ${on_string}: Output IS file" name="out" from_work_dir="file.out" />
+
+    </outputs>
+    
+    <tests>
+    <!-- Empty -->
+    </tests>
+
+    <help>
+
+.. class:: infomark
+
+**What it does**
+
+Performs MGEfinder on the given seq file.
+
+::
+
+  The command-line tool MGEfinder identifies large insertions and genotypes them with respect to a reference genome.
+
+  It is designed to work with haploid genomes, and has been tested extensively on bacteria.
+ 
+  It can identify mobile genetic elements and their sites of insertion using an ab initio approach.
+
+
+------
+
+.. class:: infomark
+
+**Tool Author**
+
+Mando Rodriguez
+
+    </help>
+</tool>
