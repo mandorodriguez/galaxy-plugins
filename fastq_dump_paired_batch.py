@@ -1,5 +1,4 @@
 #!/bin/env python
-
 import os
 import sys
 import argparse
@@ -22,7 +21,7 @@ def fastq_dump(accession_id, directory):
     downloaded files in the given directory.
 
     """
-    print "Doing a fastq-dump on accession %s:" % accession_id
+    print("Doing a fastq-dump on accession %s:" % accession_id)
 
 
     out = subprocess.Popen(["fastq-dump","--log-level","fatal","--split-3", "--accession", accession_id,
@@ -32,9 +31,9 @@ def fastq_dump(accession_id, directory):
 
     if not out.stdout is None:
         for line in iter(out.stdout.readline,b''):
-            print line.rstrip()
+            print(line.rstrip())
 
-        print "\n"
+        print("\n")
         
     # move to the given directory
     if directory != ".":
@@ -88,12 +87,12 @@ if not args.accession_file is None:
 
                 accession_ids.append(line.rstrip())
 
-    except Exception,e:
-        print "Error reading accession ids from file %s" % args.accession_file
+    except Exception as e:
+        print("Error reading accession ids from file %s" % args.accession_file)
 
 accession_ids = list(set(accession_ids))
 
-print "Attempting to download from %d accession ids\n" % len(accession_ids)
+print("Attempting to download from %d accession ids\n" % len(accession_ids))
 
 # Now we just loop through and use the fastq function on each
 
@@ -101,9 +100,9 @@ for aid in accession_ids:
 
     try:
         fastq_dump(aid, directory)
-    except Exception,e:
-        print "Error downloading %s: %s" % (aid, e) 
+    except Exception as e:
+        print("Error downloading %s: %s" % (aid, e))
 
 
-print "Done!"
+print("Done!")
 
