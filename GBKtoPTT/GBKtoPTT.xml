@@ -1,0 +1,44 @@
+<tool id="GBKtoPTT" name="Genbank to PTT" version="1.0">
+    <description>Extracts a PTT from a genbank file.</description>
+    <requirements>
+    </requirements>
+    <command interpreter="perl">
+## The command is a Cheetah template which allows some Python based syntax.
+## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
+## ! We only have a simple single command here.
+
+GBKtoPTT.pl < ${genbank_in} > ptt_out.txt
+
+    </command>
+    <inputs>
+        <param name="genbank_in" format="genbank" type="data" label="Genbank input file" help="" />
+
+    </inputs>
+    <outputs>
+
+       <data format="txt" label="${tool.name} in ${on_string}: PTT" name="ptt_out" from_work_dir="ptt_out.txt" />
+
+    </outputs>
+    
+    <tests>
+    <!-- Empty -->
+    </tests>
+
+    <help>
+
+.. class:: infomark
+
+**What it does**
+
+Wrapper for the GBKtoPTT.pl script Torsten Seemann https://github.com/ajvilleg/gbk2ptt
+
+------
+
+.. class:: infomark
+
+**Tool Author**
+
+Mando Rodriguez
+
+    </help>
+</tool>
