@@ -7,7 +7,7 @@
 ## Lines starting hash hash are comments. Galaxy will turn newlines into spaces
 ## ! We only have a simple single command here.
 
-GBKtoPTT.pl < ${genbank_in} > ptt_out.txt
+./GBKtoPTT.sh ${genbank_in}
 
     </command>
     <inputs>
