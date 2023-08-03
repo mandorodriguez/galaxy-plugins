@@ -106,7 +106,7 @@ for this_group in min_groups:
 
 
 num = 0
-output_file = "/Users/jjh526/Downloads/max-min-annotations-deletions.tsv"
+output_file = "max-min-annotations-deletions.tsv"
 with open(output_file,"w") as of:
 
     of.write(header)
